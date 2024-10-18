@@ -1,0 +1,8 @@
+.half-screen{
+    height: 100vh;
+}
+body{
+    background-image: url(../3249a16a-b94b-4db8-a60c-466c9647e82d.jpg) ;
+    background-size: cover;
+    background-position: center;
+}

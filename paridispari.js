@@ -12,40 +12,31 @@ function isEven(num) {
     return num % 2 === 0;
 }
 
-// SCEGLI PARI O DISPARI
-const choice = prompt('Scegli "pari" o "dispari"');
-console.log(`La tua scelta: ${choice}`);
+function gioca() {
+    // Ottieni i valori dall'input
+    const choice = document.getElementById('choice').value;
+    const userNum = parseInt(document.getElementById('userNum').value);
+    const resultDiv = document.getElementById('result');
 
-// CHIEDO ALL'UTENTE DI INSERIRE UN NUMERO
-let userNum = parseFloat(prompt('Scegli un numero da 1 a 5'));
-
-// ERROR IN CASO DI NUMERI NON VALIDI
-if (userNum > 5 || userNum < 1 || isNaN(userNum)) {
-    console.error('Scegli un numero valido da 1 a 5');
-} else {
-    console.log(`Il tuo numero: ${userNum}`);
-
-    // NUMERO RANDOM GENERATO DAL SISTEMA 
-    let pcNum = Math.floor(Math.random() * 5) + 1;
-    console.log(`Il numero del tuo avversario: ${pcNum}`);
-
-    // SOMMA DEI NUMERI
-    let somma = sommaNumber(userNum, pcNum);
-    console.log(`TOTALE: ${somma}`);
-
-    // DICHIARAZIONE SE È PARI O DISPARI
-    if (isEven(somma)) {
-        console.log('La somma è pari.');
-    } else {
-        console.log('La somma è dispari.');
+    // ERROR IN CASO DI NUMERI NON VALIDI
+    if (userNum < 1 || userNum > 5 || isNaN(userNum)) {
+        resultDiv.innerHTML = 'Scegli un numero valido da 1 a 5';
+        return;
     }
 
+    // NUMERO RANDOM GENERATO DAL SISTEMA 
+    const pcNum = Math.floor(Math.random() * 5) + 1;
+    const somma = sommaNumber(userNum, pcNum);
+
+    // DICHIARAZIONE SE È PARI O DISPARI
+    const sommaTesto = isEven(somma) ? 'pari' : 'dispari';
+    resultDiv.innerHTML = `Il tuo numero: ${userNum}<br>Numero del computer: ${pcNum}<br>TOTALE: ${somma} (${sommaTesto})<br>`;
+
     // DICHIARAZIONE DEL VINCITORE
-    if ((choice.toLowerCase() === 'pari' && isEven(somma)) || 
-        (choice.toLowerCase() === 'dispari' && !isEven(somma))) {
-        console.log('Hai vinto!');
+    if ((choice === 'pari' && isEven(somma)) || (choice === 'dispari' && !isEven(somma))) {
+        resultDiv.innerHTML += 'Hai vinto!';
     } else {
-        console.log('Hai perso!');
+        resultDiv.innerHTML += 'Hai perso!';
     }
 }
 
